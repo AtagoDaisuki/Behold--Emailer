@@ -65,7 +65,3 @@ All of the testing features are great, but the real power of Behold! Emailer is 
 In the Schedules menu, you may want to hit the "Refresh Schedules List" button; this will requery the Repository to get the latest list of Disabled Schedules. Click the ones you want to monitor until they are checked, then press the Save Configuration button. You also may want to set a folder under the Export File Archive Folder, so that anything generated is duplicated for auditing purposes. Once you have all of that, press the Start Scheduled Emails button.
 This starts a monitor which only fires off on the :01, the :16, the :31 and the :46 minute of the hour. Since the Tableau Server subscription options are 15 minute increments at the smallest, this will capture any next subscription to send. I don't recommend allowing PDF exports on a 15 minutes schedule, because there is more effort involved, particularly if it generates a long list, but it is possible.
 
-### May. 24, 2018
-### Minor changes in this fork:
-##### Solution file for Visual Studio 2017, restored missing dependencies.
-##### Resolved error when impersonated username has an associated domain (e.g. domain\user)
