@@ -1,0 +1,29 @@
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\License.txt
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Readme.txt
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\active_schedules.csv
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\completed_schedules.csv
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Mono.Security.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Npgsql.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\PdfSharp-WPF.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Npgsql.xml
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\de\Npgsql.resources.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\es\Npgsql.resources.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\fi\Npgsql.resources.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\fr\Npgsql.resources.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\ja\Npgsql.resources.dll
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\zh-CN\Npgsql.resources.dll
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold_Emailer.Progress.resources
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold_Emailer.Configure.resources
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold_Emailer.Image_Watermark.resources
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold_Emailer.Page_Number_Watermark.resources
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold_Emailer.Properties.Resources.resources
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold_Emailer.Text_Watermark.resources
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold_Emailer.Watermark_Edit.resources
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold Emailer.csproj.GenerateResource.cache
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold Emailer.csproj.CoreCompileInputs.cache
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold Emailer.csproj.CopyComplete
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold Emailer.exe
+C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold Emailer.pdb
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Behold Emailer.exe.config
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Behold Emailer.exe
+C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Behold Emailer.pdb
