@@ -150,6 +150,10 @@ namespace Behold_Emailer
         public string generate_export_and_watermark(string view_user, string view_location, string content_type, 
             Dictionary<string, string> view_filter_dictionary, Watermarker watermark)
         {
+            this.log(String.Format("view_user {0}", view_user));
+            this.log(String.Format("view_location {0}", view_location));
+            this.log(String.Format("content_type {0}", content_type));
+
             string filename_to_attach = this.tabcmd.create_export(content_type, view_location, view_filter_dictionary, view_user, "exported_workbook");
             this.log(String.Format("PDF created and saved successfully as {0}", filename_to_attach));
 
@@ -171,6 +175,11 @@ namespace Behold_Emailer
             {
 
                 string filename_to_attach = this.generate_export_and_watermark(view_user, view_location, email_content_type, view_filter_dictionary, watermark);
+                
+                // Run selected schedules once has error. Please put Behold Emailer under C:\ for now.
+                // This is a hard-coded(bad) fix. It works for now but I'll look into tabcmd.create_export(). 
+                filename_to_attach = @"C:\Behold Emailer\exported_workbook.pdf";
+
                 this.log(String.Format("PDF created and saved successfully as {0}", filename_to_attach));
 
                 // Copy the file with a new name so that it can be archived
@@ -180,13 +189,14 @@ namespace Behold_Emailer
                 timestamp_string = timestamp_string.Replace(":", "_");
                 timestamp_string = timestamp_string.Replace("-", "_");
                 String view_user_temp = view_user.Replace(@"\","_");
+                view_user_temp = view_user_temp.Replace(".", "_");
                 string final_filename = String.Format("{0} - {1} - {2}.{3}", email_subject, view_user_temp, timestamp_string, file_ending[file_ending.Length-1]);
                 if (this.export_archive_folder != null)
                 {
                     final_filename = this.export_archive_folder + final_filename;
                     this.log(String.Format("Achiving export to {0}", final_filename));
                 }
-                
+         
                 File.Copy(filename_to_attach, final_filename, true);
 
                 this.log(String.Format("Sending e-mail of exported and watermarked PDF to {0}", email_to[0]));
@@ -226,6 +236,13 @@ namespace Behold_Emailer
                 string view_location = row[4].ToString();
                 string user_email = row[6].ToString();
 
+                String[] parts = row[6].ToString().Split(new[] { '@' });
+                String domain = parts[1]; // "example.com"
+                if (domain != "")
+                {
+                    user = domain + @"\" + user;
+                }
+          
                 this.tabcmd.site = site;
                 this.log(String.Format("Generating e-mail of view {0} on site {1} for {2} at {3}", view_location, site, user, user_email));
 
