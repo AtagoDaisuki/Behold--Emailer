@@ -177,7 +177,7 @@ namespace Behold_Emailer
                 string filename_to_attach = this.generate_export_and_watermark(view_user, view_location, email_content_type, view_filter_dictionary, watermark);
                 
                 // Run selected schedules once has error. Please put Behold Emailer under C:\ for now.
-                // This is a hard-coded(bad) fix. It works for now but I'll look into tabcmd.create_export(). 
+                // This is a hard-coded(bad) fix. It works for now. 
                 filename_to_attach = @"C:\Behold Emailer\exported_workbook.pdf";
 
                 this.log(String.Format("PDF created and saved successfully as {0}", filename_to_attach));
@@ -188,8 +188,10 @@ namespace Behold_Emailer
                 string timestamp_string = DateTime.UtcNow.ToString("s");
                 timestamp_string = timestamp_string.Replace(":", "_");
                 timestamp_string = timestamp_string.Replace("-", "_");
+
                 String view_user_temp = view_user.Replace(@"\","_");
                 view_user_temp = view_user_temp.Replace(".", "_");
+
                 string final_filename = String.Format("{0} - {1} - {2}.{3}", email_subject, view_user_temp, timestamp_string, file_ending[file_ending.Length-1]);
                 if (this.export_archive_folder != null)
                 {

@@ -67,7 +67,10 @@ This starts a monitor which only fires off on the :01, the :16, the :31 and the 
 
 ### Minor changes in this fork:
 #### May. 24, 2018
-##### Restored missing dependencies. You can open and edit the solution in VS2017 now
-##### Resolved invalid filename error when impersonated username has an associated domain (e.g. domain\user)
-##### At least on my server, "Run Selected Schedules Once" saves the temporary workbook pdf under Behold Email folder, whereas it should save the pdf under Tableau server's bin folder. For now there is a temp hard-coded(bad) solution. Please put your Behold Email folder under C:\
-##### Looks like disabled schedules are not extracted properly. I'm looking at this.
+Restored missing dependencies. You can open and edit the solution in VS2017 now
+Resolved invalid filename error when impersonated username has an associated domain (e.g. domain\user)
+At least on my server, "Run Selected Schedules Once" saves the temporary workbook pdf under Behold Email folder, whereas it should save the pdf under Tableau server's bin folder. For now there is a temp hard-coded(bad) solution. Please put your "Behold Email" folder under C:\
+#### May. 25, 2018
+Found that if you delete a schedule that's in the app's saved configuration, it can cause fatal crash. Delete a schedule from server after stopping, unchecking and saving it in app. You can create an empty schedule with the same name to save the day if app crashes. 
+Fixed scheduling problem caused by server time/local time difference. If your Tableau database's [schedules] table uses GMT, please modify source code to indicate timezone difference. 
+

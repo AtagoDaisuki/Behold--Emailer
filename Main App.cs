@@ -262,7 +262,27 @@ namespace Behold_Emailer
                             while (dr.Read())
                             {
                                 string sched_name = dr.GetString(0);
-                                string sched_next_run_time = dr.GetDateTime(1).ToString();
+                                string sched_next_run_time;
+
+                                //If server time is set to use GMT,  you need to do some comparison
+                                DateTime serverTime = dr.GetDateTime(1);
+                                DateTime beginDST = new DateTime(serverTime.Year, 3, 10, 19, 0, 0);
+                                DateTime endDST = new DateTime(serverTime.Year, 11, 3, 19, 0, 0);
+
+                                this.logger.Log(String.Format("server time is {0}", serverTime));
+
+                                if (serverTime.Ticks > beginDST.Ticks && serverTime.Ticks < endDST.Ticks)
+                                {
+                                    sched_next_run_time = serverTime.AddHours(-7).ToString();
+                                    this.logger.Log("Converted to PST with Daylight Saving Time");
+                                }
+                                else
+                                {
+                                    sched_next_run_time = serverTime.AddHours(-8).ToString();
+                                    this.logger.Log("Converted to PST without Daylight Saving Time");
+                                }
+
+                                this.logger.Log(String.Format("Converted time is {0}", sched_next_run_time));
 
                                 // Only add if the sched_name is in the checked schedules
                                 int num_checked_items = availableSchedulesList.CheckedItems.Count;
@@ -281,6 +301,7 @@ namespace Behold_Emailer
                                     if (queued_sched[0] == sched_name && queued_sched[1] == sched_next_run_time)
                                     {
                                         schedule_exists_in_queue = true;
+                                        this.logger.Log(String.Format("Schedule {0} at {1} already exists in queue", sched_name, sched_next_run_time));
                                     }
                                 }
                                 if (schedule_exists_in_queue == false)
