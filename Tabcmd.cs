@@ -166,6 +166,7 @@ namespace Behold_Emailer
             {
                 // Exception
             }
+
             string additional_url_params = "";
             if (view_filter_dictionary != null)
             {
@@ -201,7 +202,7 @@ namespace Behold_Emailer
             cmd = String.Format("tabcmd export \"{0}\" --filename \"{1}\" --{2}",
                 view_url, filename, export_type);
             // Additional parameters for export options
-            string extra_params = "--pagelayout {4} --pagesize {5} --width {6} --height {7}";
+            // string extra_params = "--pagelayout {4} --pagesize {5} --width {6} --height {7}";
             return cmd;
         }
 
