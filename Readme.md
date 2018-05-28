@@ -75,13 +75,3 @@ Scheduling E-mails
 All of the testing features are great, but the real power of Behold! Emailer is that it can read Disabled Schedules from a Tableau Server. This means that your end users can still select them from the Subscribe drop-down in their Server view, but it's actually being generated from Behold! Emailer instead of the Tableau Server Backgrounder process.
 In the Schedules menu, you may want to hit the "Refresh Schedules List" button; this will requery the Repository to get the latest list of Disabled Schedules. Click the ones you want to monitor until they are checked, then press the Save Configuration button. You also may want to set a folder under the Export File Archive Folder, so that anything generated is duplicated for auditing purposes. Once you have all of that, press the Start Scheduled Emails button.
 This starts a monitor which only fires off on the :01, the :16, the :31 and the :46 minute of the hour. Since the Tableau Server subscription options are 15 minute increments at the smallest, this will capture any next subscription to send. I don't recommend allowing PDF exports on a 15 minutes schedule, because there is more effort involved, particularly if it generates a long list, but it is possible.
-
-### Minor changes in this fork:
-#### May. 24, 2018
-###### Restored missing dependencies. You can open and edit the solution in VS2017 now
-###### Resolved invalid filename error when impersonated username has an associated domain (e.g. domain\user)
-###### At least on my server, "Run Selected Schedules Once" saves the temporary workbook pdf under Behold Email folder, whereas it should save the pdf under Tableau server's bin folder. For now there is a temp hard-coded(bad) solution. Please put your "Behold Email" folder under C:\
-#### May. 25, 2018
-###### Found that if you delete a schedule that's in the app's saved configuration, it can cause fatal crash. Delete a schedule from server after stopping, unchecking and saving it in app. You can create an empty schedule with the same name to save the day if app crashes. 
-###### Fixed scheduling problem caused by server time/local time difference. If your Tableau database's [schedules] table uses GMT, please modify source code to indicate timezone difference. 
-
