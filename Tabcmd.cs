@@ -140,13 +140,17 @@ namespace Behold_Emailer
                 Console.WriteLine(e.Message);
             }
             string cmd;
+
+            //added --no-certcheck to avoid SSL error:
+            //onlinehelp.tableau.com/current/server/en-us/tabcmd_cmd.htm#id5fba51c9-5608-4520-8ceb-2caf4846a2be
+            //-t misses argument in original version causing tabcmd to skip it. I'm hard coding the site name here to get it running first.
             if ( this.site.ToLower() == "default"){
-                cmd = String.Format("tabcmd login -s {0} -u {1} --password-file \"{2}\"", this.tableau_server_url,
+                cmd = String.Format("tabcmd login --no-certcheck -s {0} -u {1} --password-file \"{2}\"", this.tableau_server_url,
                     this.username, pw_filename);
             }
             else {
-                 cmd = String.Format("tabcmd login -s {0} -t {1} -u {2} --password-file \"{3}\"", this.tableau_server_url,
-                     this.site, this.username, pw_filename);
+                 cmd = String.Format("tabcmd login --no-certcheck -s {0} -t VCH-PHC -u {1} --password-file \"{2}\"", this.tableau_server_url,
+                     this.username, pw_filename);
             }
             return cmd;
         }
