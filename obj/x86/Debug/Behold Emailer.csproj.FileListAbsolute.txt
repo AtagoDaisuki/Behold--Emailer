@@ -27,4 +27,3 @@ C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold Emailer.pdb
 C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Behold Emailer.exe.config
 C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Behold Emailer.exe
 C:\Users\jchen24\Desktop\Behold Emailer\bin\Debug\Behold Emailer.pdb
-C:\Users\jchen24\Desktop\Behold Emailer\obj\x86\Debug\Behold Emailer.csprojAssemblyReference.cache

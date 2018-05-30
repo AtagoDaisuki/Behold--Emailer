@@ -199,8 +199,18 @@ namespace Behold_Emailer
                 }
             }
             view_url += additional_url_params;
-            cmd = String.Format("tabcmd export \"{0}\" --filename \"{1}\" --{2}",
-                view_url, filename, export_type);
+            if (view_url.Contains(@"/sheets/")){
+                cmd = String.Format("tabcmd get \"views/{0}\" -f \"{1}\"", view_url, filename);
+                this.logger.Log(cmd);
+                this.logger.Log(String.Format("exporting view {0}", view_url));
+            }
+            else {
+                cmd = String.Format("tabcmd export \"{0}\" -f \"{1}\" -{2}",
+              view_url, filename, export_type);
+                this.logger.Log(cmd);
+                this.logger.Log(String.Format("exporting workbook {0}", view_url));
+            }
+            
             // Additional parameters for export options
             // string extra_params = "--pagelayout {4} --pagesize {5} --width {6} --height {7}";
             return cmd;

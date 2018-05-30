@@ -175,10 +175,10 @@ namespace Behold_Emailer
             {
 
                 string filename_to_attach = this.generate_export_and_watermark(view_user, view_location, email_content_type, view_filter_dictionary, watermark);
-                
-                // Run selected schedules once has error. Please put Behold Emailer under C:\ for now.
-                // This is a hard-coded(bad) fix. It works for now. 
-                filename_to_attach = @"C:\Behold Emailer\exported_workbook.pdf";
+
+                // If running selected schedules gives error when you put the app in C:\, uncomment the following line:
+                // filename_to_attach = @"C:\Behold Emailer\exported_workbook.pdf";
+                // This is a hard-coded(bad) fix, but it works. 
 
                 this.log(String.Format("PDF created and saved successfully as {0}", filename_to_attach));
 
