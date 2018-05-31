@@ -135,6 +135,7 @@ namespace Behold_Emailer
             {
                 this.logger.Log("Incorrect credentials for repository readonly user. Cannot connect to repository.");
                 MessageBox.Show("Credentials were not correct for the Repository \"readonly\" user. Please fix");
+                this.logger.Log(String.Format("Configuration Exception: {0}", ce));
             }
         }
 

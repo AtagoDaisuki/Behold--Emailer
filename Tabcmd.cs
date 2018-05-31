@@ -141,9 +141,9 @@ namespace Behold_Emailer
             }
             string cmd;
 
-            //added --no-certcheck to avoid SSL error:
+            //added --no-certcheck to avoid SSL error (PKIX pathbuilding failed):
             //onlinehelp.tableau.com/current/server/en-us/tabcmd_cmd.htm#id5fba51c9-5608-4520-8ceb-2caf4846a2be
-            //-t misses argument in original version causing tabcmd to skip it. I'm hard coding the site name here to get it running first.
+            //-t misses argument (site name) in original version causing tabcmd to skip it. I'm hard coding the site name here to get it running first.
             if ( this.site.ToLower() == "default"){
                 cmd = String.Format("tabcmd login --no-certcheck -s {0} -u {1} --password-file \"{2}\"", this.tableau_server_url,
                     this.username, pw_filename);
@@ -203,16 +203,17 @@ namespace Behold_Emailer
                 }
             }
             view_url += additional_url_params;
-            if (view_url.Contains(@"/sheets/")){
-                cmd = String.Format("tabcmd get \"views/{0}\" -f \"{1}\"", view_url, filename);
-                this.logger.Log(cmd);
-                this.logger.Log(String.Format("exporting view {0}", view_url));
+            if (view_url.Contains(@"/workbook/")){
+                //Note that workbook part is a placeholder.It never gets called. Right now the app skips through schedules configured to export workbook.
+                cmd = String.Format("tabcmd export \"{0}\" -f \"{1}\" --{2} --no-certcheck",
+              view_url, filename, export_type);
+                this.logger.Log(String.Format("exporting workbook {0}", view_url));
             }
             else {
-                cmd = String.Format("tabcmd export \"{0}\" -f \"{1}\" -{2}",
-              view_url, filename, export_type);
-                this.logger.Log(cmd);
-                this.logger.Log(String.Format("exporting workbook {0}", view_url));
+                //Only this is called, and this exports view into pdf.
+                cmd = String.Format("tabcmd export \"{0}\" -f \"{1}\" --pdf --no-certcheck",
+              view_url, filename);
+                this.logger.Log(String.Format("exporting view {0}", view_url));
             }
             
             // Additional parameters for export options

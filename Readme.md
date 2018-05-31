@@ -2,9 +2,9 @@
 
 ### May. 24, 2018
 
-Restored missing dependencies. You can open and edit the solution in VS2017 now
+Fixed missing dependencies. You can open and edit the solution in VS2017 now
 
-Resolved invalid filename error when impersonated username has an associated domain (e.g. domain\user)
+Fixed invalid filename error when impersonated username has an associated domain (e.g. domain\user)
 
 ### May. 25, 2018
 
@@ -16,9 +16,11 @@ Fixed scheduling problem caused by server time/local time difference. If your Ta
 
 If you put the app under C:\, it might save the exported pdf under the app's root folder to cause an exception. Putting it in another drive works fine.
 
-Temp fix for tabcmd login missing -t argument problem caused by empty site name. 
+Hard-coded fix for tabcmd login missing -t argument problem caused by empty site name. (Line 152, tabcmd.cs)
 
-Fixing SSL "PKIX pathbuilding failed" error mentioned below (the solution does not work so far...):
+### May. 31, 2018
+
+Fixed SSL "PKIX pathbuilding failed" error:
 https://kb.tableau.com/articles/issue/errors-access-is-denied-or-pkix-pathbuilding-failed-signing-into-ssl-enabled-tableau-server-using-tabcmd
 
 # Author's Original README
