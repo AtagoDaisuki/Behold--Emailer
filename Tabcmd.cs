@@ -143,12 +143,17 @@ namespace Behold_Emailer
 
             //added --no-certcheck to avoid SSL error (PKIX pathbuilding failed):
             //onlinehelp.tableau.com/current/server/en-us/tabcmd_cmd.htm#id5fba51c9-5608-4520-8ceb-2caf4846a2be
+
             //-t misses argument (site name) in original version causing tabcmd to skip it. I'm hard coding the site name here to get it running first.
             if ( this.site.ToLower() == "default"){
                 cmd = String.Format("tabcmd login --no-certcheck -s {0} -u {1} --password-file \"{2}\"", this.tableau_server_url,
                     this.username, pw_filename);
             }
             else {
+                 this.logger.Log("before");
+                 this.logger.Log(String.Format("Site Name line 1 is: {0}", this._site));
+                 this.logger.Log(String.Format("Site Name line 2 is: {0}", this.site));
+                 this.logger.Log("after");
                  cmd = String.Format("tabcmd login --no-certcheck -s {0} -t VCH-PHC -u {1} --password-file \"{2}\"", this.tableau_server_url,
                      this.username, pw_filename);
             }

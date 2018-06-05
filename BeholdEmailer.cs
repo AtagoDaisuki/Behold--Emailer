@@ -71,7 +71,7 @@ namespace Behold_Emailer
             }
         }
 
-        public void email_file_from_template(string from_user, string[] to_users, string[] cc_users, string[] bcc_users, string subject, string simple_message_text, string filename_to_attach)
+        public void email_file_from_template(string from_user, string[] to_users, string[] cc_users, string[] bcc_users, string subject, string simple_message_text, string filename_to_attach, string view_location, string view_user)
         {
             string message_text = "";
             // Load Text template
@@ -128,7 +128,17 @@ namespace Behold_Emailer
                     using (StreamReader sr = new StreamReader(this.html_email_template_filename))
                     {
                         ContentType mimeType = new System.Net.Mime.ContentType("text/html");
-                        AlternateView htmlAltView = AlternateView.CreateAlternateViewFromString(sr.ReadToEnd(), mimeType);
+                        String body_content = sr.ReadToEnd();
+
+                        //If you don't need a customized email template, delete the lines below. 
+                        //You can also modify the html email template to reuse variables.
+                        body_content = body_content.Replace("<%view_name%>", view_location.Split('/')[1]);
+                        body_content = body_content.Replace("<%workbook_name%>", view_location.Split('/')[0]);
+                        body_content = body_content.Replace("<%view_URL%>", view_location);
+                        body_content = body_content.Replace("<%user_name%>", view_user.Replace(@"\",@"/"));
+                        //Delete until here
+
+                        AlternateView htmlAltView = AlternateView.CreateAlternateViewFromString(body_content, mimeType);
                         message.AlternateViews.Add(htmlAltView);
                     }
                 }
@@ -150,10 +160,6 @@ namespace Behold_Emailer
         public string generate_export_and_watermark(string view_user, string view_location, string content_type, 
             Dictionary<string, string> view_filter_dictionary, Watermarker watermark)
         {
-            this.log(String.Format("view_user {0}", view_user));
-            this.log(String.Format("view_location {0}", view_location));
-            this.log(String.Format("content_type {0}", content_type));
-
             string filename_to_attach = this.tabcmd.create_export(content_type, view_location, view_filter_dictionary, view_user, "exported_workbook");
             this.log(String.Format("PDF created and saved successfully as {0}", filename_to_attach));
 
@@ -178,7 +184,7 @@ namespace Behold_Emailer
 
                 // If running selected schedules gives error when you put the app in C:\, uncomment the following line:
                 // filename_to_attach = @"C:\Behold Emailer\exported_workbook.pdf";
-                // This is a hard-coded(bad) fix, but it works. 
+                // This is a hard-coded(bad) fix. 
 
                 this.log(String.Format("PDF created and saved successfully as {0}", filename_to_attach));
 
@@ -189,6 +195,7 @@ namespace Behold_Emailer
                 timestamp_string = timestamp_string.Replace(":", "_");
                 timestamp_string = timestamp_string.Replace("-", "_");
 
+                //The line below makes filename valid when your username has a domain
                 String view_user_temp = view_user.Replace(@"\","_");
                 view_user_temp = view_user_temp.Replace(".", "_");
 
@@ -203,7 +210,7 @@ namespace Behold_Emailer
 
                 this.log(String.Format("Sending e-mail of exported and watermarked PDF to {0}", email_to[0]));
 
-                this.email_file_from_template(email_from_user, email_to, email_cc, email_bcc, email_subject, email_template_name, final_filename);
+                this.email_file_from_template(email_from_user, email_to, email_cc, email_bcc, email_subject, email_template_name, final_filename, view_location, view_user);
                 this.log(String.Format("Removing original file {0}", filename_to_attach));
                 File.Delete(filename_to_attach);
                 

@@ -265,25 +265,11 @@ namespace Behold_Emailer
                                 string sched_name = dr.GetString(0);
                                 string sched_next_run_time;
 
-                                //If server time is set to use GMT,  you need to do some comparison
+                                //Although server time is usually UTC, the time is later compared with current time converted to UTC too.
                                 DateTime serverTime = dr.GetDateTime(1);
-                                DateTime beginDST = new DateTime(serverTime.Year, 3, 10, 19, 0, 0);
-                                DateTime endDST = new DateTime(serverTime.Year, 11, 3, 19, 0, 0);
+                                sched_next_run_time = serverTime.ToString();
 
-                                this.logger.Log(String.Format("server time is {0}", serverTime));
-
-                                if (serverTime.Ticks > beginDST.Ticks && serverTime.Ticks < endDST.Ticks)
-                                {
-                                    sched_next_run_time = serverTime.AddHours(-7).ToString();
-                                    this.logger.Log("Converted to PST with Daylight Saving Time");
-                                }
-                                else
-                                {
-                                    sched_next_run_time = serverTime.AddHours(-8).ToString();
-                                    this.logger.Log("Converted to PST without Daylight Saving Time");
-                                }
-
-                                this.logger.Log(String.Format("Converted time is {0}", sched_next_run_time));
+                                this.logger.Log(String.Format("Next scheduled run time (UTC) is {0}", sched_next_run_time));
 
                                 // Only add if the sched_name is in the checked schedules
                                 int num_checked_items = availableSchedulesList.CheckedItems.Count;
@@ -337,11 +323,16 @@ namespace Behold_Emailer
                         if (result == true)
                         {
                             this.logger.Log(String.Format("Schedule {0} at {1} has run successfully. Removing from queue", queued_sched[0], queued_sched[1]));
-                            // Write completed schedules into the schedule_run log
-                            this.completed_schedules_file.WriteLine(String.Format("{0}|{1}", queued_sched[0], queued_sched[1]));
-                            this.active_schedules.Remove(queued_sched);
-
                         }
+                        else
+                        {
+                            //Suppose a schedule contains multiple subscriptions and one of them fails, the original app will send pdf to everyone else every 15 minutes.
+                            //This prevents it by removing unsuccessful sessions.
+                            this.logger.Log(String.Format("Schedule {0} at {1} failed (maybe partially). Removing from queue", queued_sched[0], queued_sched[1]));     
+                        }
+                        // Write completed schedules into the schedule_run log
+                        this.completed_schedules_file.WriteLine(String.Format("{0}|{1}", queued_sched[0], queued_sched[1]));
+                        this.active_schedules.Remove(queued_sched);
 
                     }
                 }

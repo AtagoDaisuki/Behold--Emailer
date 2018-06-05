@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Npgsql;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Behold_Emailer
 {
@@ -76,7 +77,7 @@ namespace Behold_Emailer
                 }
                 else
                 {
-                    throw e;
+                    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 }
             }
 

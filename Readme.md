@@ -1,30 +1,23 @@
 ﻿# Changes in this fork
-#### I modified the original solution just to make it work on my Tableau server. If the original app gives you exceptions, this repo might give you some hints.
-
-### May. 24, 2018
+#### Modified the original solution just to make it work on my Tableau server. If the original app gives you exceptions, this repo might give you some hints.
 
 * Fixed missing dependencies. You can open and edit the solution in VS2017 now
 
-* Fixed invalid filename error when impersonated username has an associated domain (e.g. domain\user)
-
-### May. 25, 2018
+* Fixed invalid filename error when a subscription's username has an associated domain (e.g. domain\user)
 
 * Found that if you delete a schedule that's in the app's saved configuration, it can cause fatal crash. Delete a schedule from server after stopping, unchecking and saving it in app. You can create an empty schedule with the same name to save the day if app crashes. Find the names under active_schedules.csv.
 
-* Fixed scheduling problem caused by server time/local time difference. If your Tableau database's [schedules] table uses GMT, please modify source code to indicate timezone difference. 
-
-### May. 30, 2018
-
 * If you put the app under C:\, it might save the exported pdf under the app's root folder to cause an exception. Putting it in another drive works fine.
-
-* Hard-coded fix for tabcmd login missing -t argument problem caused by empty site name. (Line 152, tabcmd.cs)
-
-### May. 31, 2018
 
 * Fixed SSL "PKIX pathbuilding failed" [error](https://kb.tableau.com/articles/issue/errors-access-is-denied-or-pkix-pathbuilding-failed-signing-into-ssl-enabled-tableau-server-using-tabcmd)
 
+* Fixed issue where the app executes a partially failed schedule every 15 minutes after first try, sending pdf to everyone in schedule other than failed subscribers.
 
-# Author's Original README
+* Added dynamic email template (template.html)
+
+* Fixing tabcmd login missing -t argument problem caused by empty site name. (Line 152, tabcmd.cs, currently a hard-coded solution)
+
+# Author's original readme:
 To use Behold! Emailer, you follow these steps:
 
    1) Input configurations for all necessary Tableau Server technologies. Behold! Emailer takes advantage of Trusted Tickets, the "readonly" repository user, and tabcmd
